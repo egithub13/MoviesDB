@@ -8,45 +8,61 @@
 import SwiftUI
 
 struct MovieCardView: View {
-  var baseImageURL: String
-  var imageURL: String
+ 
+  var movie: Movie
+  
   var body: some View {
     ZStack {
       VStack(alignment: .leading, spacing: 16.0) {
-        AsyncImage(url: URL(string: baseImageURL + imageURL)) { image in
+        AsyncImage(url: URL(string: Endpoints.baseImageURL.value + movie.posterPath)) { image in
           image.resizable()
         } placeholder: {
           ProgressView()
             .controlSize(.large)
         }
         .frame(width: 180, height: 220)
-        cardText()
+        cardText(movie: movie)
+          
       }
       .background(Color.white)
       .clipShape(RoundedRectangle(cornerRadius: 12.0))
       .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-      MovieRatingView()
+      MovieRatingView(movie: movie)
+        .padding(.trailing, 100)
+        .padding(.top, 100)
+        
       EllipsisView()
     }
   }
   
   struct cardText: View {
-    
+    var movie: Movie
     var body: some View {
       VStack(alignment: .leading) {
-        Text("Movie Title")
+        Text(movie.title)
           .font(.headline)
-        Text("Release Date:")
+        Text(movie.releaseDate)
           .font(.headline)
           .foregroundStyle(.secondary)
       }
+      .frame(width: 180)
+      .multilineTextAlignment(.leading)
+      .lineLimit(nil)
       .padding(.top, 32)
       .padding(.bottom, 32)
-      .padding(.horizontal, 8)
+      
     }
   }
 }
 
+
 #Preview {
-    MovieCardView(baseImageURL: "https://image.tmdb.org/t/p/w185", imageURL: "/nP6RliHjxsz4irTKsxe8FRhKZYl.jpg")
+  MovieCardView(movie: demoMovie)
 }
+
+var demoMovie = Movie(id: 00001,
+                      overview: "After their late former Captain is framed, Lowrey and Burnett try to clear his name, only to end up on the run themselves.",
+                      posterPath: "/nP6RliHjxsz4irTKsxe8FRhKZYl.jpg",
+                      releaseDate: "2024-06-05",
+                      title: "Bad Boys: Ride or Die",
+                      voteAverage: 7.149)
