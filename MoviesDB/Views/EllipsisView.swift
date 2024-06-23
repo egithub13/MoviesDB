@@ -13,8 +13,6 @@ struct EllipsisView: View {
       .frame(width: 24, height: 24)
       .background(.gray)
       .cornerRadius(12)
-      .padding(.leading, 120)
-      .padding(.bottom, 280)
   }
 }
 

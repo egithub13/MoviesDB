@@ -30,8 +30,9 @@ struct MovieCardView: View {
       MovieRatingView(movie: movie)
         .padding(.trailing, 100)
         .padding(.top, 100)
-        
       EllipsisView()
+        .padding(.leading, 120)
+        .padding(.bottom, 280)
     }
   }
   
@@ -57,10 +58,10 @@ struct MovieCardView: View {
 
 
 #Preview {
-  MovieCardView(movie: demoMovie)
+  MovieCardView(movie: previewMovie)
 }
 
-var demoMovie = Movie(id: 00001,
+var previewMovie = Movie(id: 00001,
                       overview: "After their late former Captain is framed, Lowrey and Burnett try to clear his name, only to end up on the run themselves.",
                       posterPath: "/nP6RliHjxsz4irTKsxe8FRhKZYl.jpg",
                       releaseDate: "2024-06-05",

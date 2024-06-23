@@ -47,14 +47,8 @@ struct circularProgressView: View {
     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
     
   }
-  
-  func convertToPercentage(from: Int) -> CGFloat {
-    
-    return 0.0
-  }
 }
 
-
 #Preview {
-    MovieRatingView(movie: demoMovie)
+    MovieRatingView(movie: previewMovie)
 }
