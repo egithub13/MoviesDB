@@ -15,24 +15,26 @@ struct MovieCardView: View {
     ZStack {
       VStack(alignment: .leading, spacing: 16.0) {
         AsyncImage(url: URL(string: Endpoints.baseImageURL.value + movie.posterPath)) { image in
-          image.resizable()
+          image
+            .resizable()
+            .scaledToFill()
         } placeholder: {
           ProgressView()
             .controlSize(.large)
         }
-        .frame(width: 180, height: 220)
+        .frame(width: 188, height: 220)
+        MovieRatingView(movie: movie)
+          .padding(.leading, 8)
+          .padding(.top, -12)
         cardText(movie: movie)
-          
+          .padding(.leading, 8)
       }
       .background(Color.white)
       .clipShape(RoundedRectangle(cornerRadius: 12.0))
       .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-      MovieRatingView(movie: movie)
-        .padding(.trailing, 100)
-        .padding(.top, 100)
       EllipsisView()
         .padding(.leading, 120)
-        .padding(.bottom, 280)
+        .padding(.bottom, 300)
     }
   }
   
@@ -42,14 +44,13 @@ struct MovieCardView: View {
       VStack(alignment: .leading) {
         Text(movie.title)
           .font(.headline)
+      
         Text(movie.releaseDate)
           .font(.headline)
           .foregroundStyle(.secondary)
+        
       }
-      .frame(width: 180)
-      .multilineTextAlignment(.leading)
-      .lineLimit(nil)
-      .padding(.top, 32)
+      .frame(width: 180, height: 54, alignment: .leading)
       .padding(.bottom, 32)
       
     }

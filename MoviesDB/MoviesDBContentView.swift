@@ -13,25 +13,29 @@ struct MoviesDBContentView: View {
   private var defaultMovies: [Movie] = []
   
   var body: some View {
-    ScrollView {
-      VStack(spacing: 48) {
-        ForEach(viewModel.movieData ?? defaultMovies) { movie in
-          MovieCardView(movie: movie)
+    NavigationView {
+      ScrollView {
+        VStack(spacing: 48) {
+          ForEach(viewModel.movieData ?? defaultMovies) { movie in
+            MovieCardView(movie: movie)
+          }
+        }
+        .task {
+          do {
+            viewModel.movieData = try await MovieDBViewModel.fetchMovieData()
+          } catch MovieDBError.invalidURL {
+            print("Invalid URL")
+          } catch MovieDBError.invalidStatusCode {
+            print("Invalid status code")
+          } catch MovieDBError.invalidData {
+            print("Invalid data")
+          } catch {
+            print("Unexpected error")
+          }
         }
       }
-      .task {
-        do {
-          viewModel.movieData = try await MovieDBViewModel.fetchMovieData()
-        } catch MovieDBError.invalidURL {
-          print("Invalid URL")
-        } catch MovieDBError.invalidStatusCode {
-          print("Invalid status code")
-        } catch MovieDBError.invalidData {
-          print("Invalid data")
-        } catch {
-          print("Unexpected error")
-        }
-      }
+      .navigationTitle("Movies")
+      .navigationBarTitleDisplayMode(.inline)
     }
   }
 }
